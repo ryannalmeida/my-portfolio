@@ -2,6 +2,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaFileDownload } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 
+const resumePath = import.meta.env.BASE_URL + 'resume.pdf';
+
 const technologies = ['Node.js', 'React', 'TypeScript', 'NestJS'];
 
 export default function Hero() {
@@ -97,7 +99,7 @@ export default function Hero() {
             </a>
 
             <a
-              href="/resume.pdf"
+              href={resumePath}
               download
               className="bg-gradient-to-r from-purple-600 to-blue-600 px-8 py-4 rounded-2xl flex items-center gap-3 font-semibold hover:from-purple-500 hover:to-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/40"
             >
