@@ -135,7 +135,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-semibold text-white">GitHub</p>
-                    <p className="text-sm text-gray-400">@ryannvictor</p>
+                    <p className="text-sm text-gray-400">@ryannalmeida</p>
                   </div>
                 </motion.a>
 
@@ -151,7 +151,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-semibold text-white">LinkedIn</p>
-                    <p className="text-sm text-gray-400">@ryannvictor</p>
+                    <p className="text-sm text-gray-400">@ryann-almeida</p>
                   </div>
                 </motion.a>
               </div>
