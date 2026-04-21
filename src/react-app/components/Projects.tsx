@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { motion, useInView } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import { Github, ExternalLink, Code2 } from 'lucide-react';
+import gsap from 'gsap';
 
 interface Project {
   title: string;
@@ -14,30 +14,30 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: 'NeuroNotes',
+    title: 'Artools',
     description:
-      'Aplicação de anotações com IA com organização inteligente, busca semântica e marcação automática. Construída para produtividade e gerenciamento de conhecimento perfeito.',
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=500&fit=crop',
-    techStack: ['React', 'TypeScript', 'Node.js', 'OpenAI', 'PostgreSQL'],
-    githubUrl: 'https://github.com/ryannvictor/neuronotes',
-    liveUrl: 'https://neuronotes.app',
+      'A Precision Pen que redefine o equilíbrio entre peso, fluxo e design. Um projeto focado em criadores que exigem perfeição em cada traço e tecnologia de ponta.',
+    image: '/my-portfolio/artools.png',
+    techStack: ['TypeScript', 'Next.js', 'Canvas API', 'GSAP'],
+    githubUrl: 'https://github.com/ryannalmeida/Artools-Website',
+    liveUrl: 'https://artools-website-beige.vercel.app/',
   },
   {
-    title: 'Sistema de Reserva de Coworking',
+    title: 'MySpot',
     description:
-      'Plataforma moderna de gerenciamento de espaços de coworking com reserva de mesas em tempo real, gerenciamento de membros e painel de análises. Operações de espaço de trabalho simplificadas.',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=500&fit=crop',
-    techStack: ['React', 'Next.js', 'TypeScript', 'Prisma', 'PostgreSQL'],
-    githubUrl: 'https://github.com/ryannalmeida/coworkspace-en',
-    liveUrl: 'https://ryannalmeida.github.io/coworkspace-en/',
+      'Tecnologia avançada de tradução em tempo real para jogos via IA. Reconhecimento de tela de alto desempenho que permite entender qualquer idioma instantaneamente.',
+    image: '/my-portfolio/myspot.png',
+    techStack: ['React', 'TypeScript', 'AI/ML', 'OCR Engine'],
+    githubUrl: 'https://github.com/ryannalmeida/myspot',
+    liveUrl: 'https://myspot.com.br',
   },
   {
-    title: 'Projeto Futuro',
+    title: 'Lacrei Insights',
     description:
-      'Em breve. Novo projeto empolgante focado em soluções inovadoras e tecnologia de ponta. Fique atento para atualizações.',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=500&fit=crop',
-    techStack: ['React', 'TypeScript', 'Node.js', 'Docker'],
-    githubUrl: 'https://github.com/ryannvictor',
+      'Análise estratégica de dados e inteligência para a plataforma Lacrei Saúde. Focado em acessibilidade e impacto social no setor de saúde inclusiva.',
+    image: '/my-portfolio/lacrei.png',
+    techStack: ['React', 'TypeScript', 'Data Analysis', 'Python'],
+    githubUrl: 'https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-2-pe4-t3-lacrei_insights',
   },
 ];
 
@@ -45,87 +45,136 @@ export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const cards = document.querySelectorAll('.project-card');
+      cards.forEach((card) => {
+        card.addEventListener('mousemove', (e: any) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = (y - centerY) / 20;
+          const rotateY = (centerX - x) / 20;
+          
+          gsap.to(card, {
+            rotateX,
+            rotateY,
+            duration: 0.5,
+            ease: 'power2.out',
+            transformPerspective: 1000
+          });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            rotateX: 0,
+            rotateY: 0,
+            duration: 0.5,
+            ease: 'power2.out'
+          });
+        });
+      });
+    }, ref);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="projects" className="py-24 px-6 relative overflow-hidden">
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
-
+    <section id="projects" className="py-32 px-6 relative">
       <div className="max-w-7xl mx-auto relative z-10" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">Projetos em Destaque</span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Construindo soluções inovadoras com tecnologias modernas e melhores práticas
-          </p>
-        </motion.div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+          <div className="space-y-4">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              className="flex items-center gap-2 text-cyan-400 font-semibold tracking-wider uppercase text-sm"
+            >
+              <Code2 size={18} />
+              <span>Portfólio</span>
+            </motion.div>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.1 }}
+              className="font-display text-4xl md:text-6xl font-black tracking-tighter text-white"
+            >
+              Projetos em <span className="shimmer-text">Destaque</span>
+            </motion.h2>
+          </div>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.2 }}
+            className="text-slate-500 text-lg max-w-md font-light leading-relaxed"
+          >
+            Uma seleção de trabalhos que combinam complexidade técnica com design excepcional.
+          </motion.p>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              whileHover={{ y: -8 }}
-              className="glass-card overflow-hidden group cursor-pointer"
+              className="project-card group relative flex flex-col h-full glass-card rounded-[2.5rem] border-white/5 overflow-hidden hover:border-indigo-500/30 transition-all duration-700"
             >
-              {/* Project Image */}
-              <div className="relative h-64 overflow-hidden">
-                <motion.img
+              {/* Image Container with Overlay */}
+              <div className="relative aspect-[16/11] overflow-hidden">
+                <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110 group-hover:rotate-1"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-              </div>
-
-              {/* Project Content */}
-              <div className="p-6">
-                <h3 className="font-display text-2xl font-bold mb-3 text-white group-hover:text-purple-400 transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-gray-400 mb-4 leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-lg text-gray-300"
-                    >
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020204] via-[#020204]/20 to-transparent opacity-80" />
+                
+                {/* Tech Chips Overlay */}
+                <div className="absolute top-6 left-6 flex flex-wrap gap-2">
+                  {project.techStack.slice(0, 3).map((tech) => (
+                    <span key={tech} className="px-3 py-1 text-[10px] bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-white/70 font-semibold uppercase tracking-wider">
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex gap-4">
+                {/* Floating Number */}
+                <span className="absolute bottom-4 right-8 font-display text-8xl font-black text-white/[0.03] select-none italic pointer-events-none group-hover:text-indigo-500/10 transition-colors duration-700">
+                  0{index + 1}
+                </span>
+              </div>
+
+              {/* Content */}
+              <div className="p-10 flex flex-col flex-grow relative z-10">
+                <h3 className="font-display text-3xl font-bold mb-4 text-white group-hover:text-indigo-200 transition-colors duration-300 tracking-tighter">
+                  {project.title}
+                </h3>
+                <p className="text-gray-400 mb-10 font-light leading-relaxed flex-grow text-lg">
+                  {project.description}
+                </p>
+
+                <div className="flex items-center gap-6 pt-8 border-t border-white/5">
                   <a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-lg transition-all duration-300 group/btn"
+                    className="flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-white uppercase tracking-widest transition-all"
                   >
-                    <FaGithub className="text-lg group-hover/btn:scale-110 transition-transform" />
-                    <span className="font-medium">Ver Código</span>
+                    <Github size={18} />
+                    <span>Código</span>
                   </a>
                   {project.liveUrl && (
                     <a
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 rounded-lg transition-all duration-300 group/btn"
+                      className="ml-auto w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-indigo-400 hover:text-white transition-all duration-500 group/btn"
                     >
-                      <FaExternalLinkAlt className="text-sm group-hover/btn:scale-110 transition-transform" />
-                      <span className="font-medium">Demo ao Vivo</span>
+                      <ExternalLink size={20} className="group-hover/btn:rotate-12 transition-transform" />
                     </a>
                   )}
                 </div>
@@ -133,7 +182,9 @@ export default function Projects() {
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );
 }
+

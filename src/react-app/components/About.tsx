@@ -1,95 +1,104 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { User, Sparkles, Rocket, Coffee } from 'lucide-react';
 import profileImage from '@/react-app/assets/profile.jpg';
 
 export default function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
+  const stats = [
+    { icon: Rocket, label: 'Especialista', value: 'Fullstack' },
+    { icon: Coffee, label: 'Anos de Experiência', value: '4+' },
+    { icon: Sparkles, label: 'Foco em', value: 'Arquitetura' },
+  ];
+
   return (
-    <section id="about" className="py-24 px-6 relative overflow-hidden">
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
-
+    <section id="about" className="py-40 px-6 relative overflow-hidden">
       <div className="max-w-6xl mx-auto relative z-10" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">Sobre Mim</span>
-          </h2>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* About Text */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+          {/* Photo Card */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 1 }}
+            className="order-2 lg:order-1 relative group"
           >
-            <div className="glass-card p-8">
-              <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                Sou um <span className="text-purple-400 font-semibold">Engenheiro de Software Full-Stack</span> apaixonado pelo o que faço,
-                especializado em construir aplicações web modernas e escaláveis com desempenho e experiência de usuário excepcionais.
-              </p>
-              <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                Minha expertise abrange todo o ciclo de vida de desenvolvimento, desde arquitetar sistemas backend robustos
-                com <span className="text-blue-400 font-semibold">microsserviços</span> até criar interfaces frontend bonitas
-                e responsivas com <span className="text-cyan-400 font-semibold">React</span> e <span className="text-cyan-400 font-semibold">Next.js</span>.
-              </p>
-              <p className="text-gray-300 text-lg leading-relaxed">
-                Estou comprometido em escrever código limpo e manutenível, seguindo as melhores práticas em arquitetura de software.
-                Meu foco é entregar soluções de alta qualidade que não apenas atendem aos requisitos técnicos, mas também
-                proporcionam valor e desempenho excepcionais.
-              </p>
+            {/* Background Glow for Image */}
+            <div className="absolute inset-0 bg-indigo-500/20 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            
+            <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden group shadow-2xl border border-white/5 bg-[#020204]">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#020204] via-transparent to-transparent z-10 opacity-80" />
+              <img
+                src={profileImage}
+                alt="Ryann Victor"
+                className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
+              />
+              
+              {/* Floating Stat Card */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.6 }}
+                className="absolute bottom-6 right-6 left-6 z-20 glass-card p-10 rounded-[2.5rem] border-white/10 backdrop-blur-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+              >
+                <div className="flex items-center justify-around">
+                  {stats.map((stat, i) => (
+                    <div key={i} className="flex flex-col items-center gap-3 group/stat">
+                      <div className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover/stat:bg-indigo-500/20 group-hover/stat:border-indigo-500/40 transition-all duration-500">
+                        <stat.icon size={16} className="text-indigo-400" />
+                      </div>
+                      <div className="text-center">
+                        <p className="text-white font-black text-2xl leading-none mb-1">{stat.value}</p>
+                        <p className="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-black">{stat.label}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
             </div>
           </motion.div>
 
-          {/* Photo Card */}
+          {/* Text Content */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex items-center justify-center lg:justify-end"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="order-1 lg:order-2 space-y-10"
           >
-            <div className="relative group">
-              {/* Gradient Glow Border */}
-              <div className="absolute -inset-1 bg-gradient-to-br from-purple-600 via-blue-600 to-violet-600 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              {/* Photo Card */}
-              <div className="relative glass-card overflow-hidden rounded-3xl shadow-2xl">
-                <div className="relative">
-                  <img
-                    src={profileImage}
-                    alt="Ryann Victor"
-                    className="w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                </div>
-                
-                {/* Caption */}
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                    className="backdrop-blur-xl bg-white/10 rounded-2xl p-4 border border-white/20"
-                  >
-                    <h3 className="font-display text-2xl font-bold text-white mb-1">
-                      Ryann Victor
-                    </h3>
-                    <p className="text-purple-300 font-medium">
-                      Engenheiro de Software Full-Stack
-                    </p>
-                  </motion.div>
-                </div>
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-3 text-indigo-400 font-bold tracking-[0.3em] uppercase text-[10px] backdrop-blur-xl bg-white/5 px-4 py-2 rounded-full border border-white/10">
+                <User size={14} />
+                <span>Minha História</span>
               </div>
+              
+              <h2 className="font-display text-5xl md:text-7xl font-black tracking-tighter text-white leading-none">
+                Além do <br />
+                <span className="shimmer-text italic">Algoritmo</span>
+              </h2>
+            </div>
+            
+            <div className="space-y-8 text-gray-400 text-xl font-light leading-relaxed">
+              <p>
+                Sou um <span className="text-white font-medium italic">Engenheiro de Software</span> que acredita que a tecnologia 
+                deve ser invisível, permitindo que a experiência humana brilhe.
+              </p>
+              <p>
+                Minha trajetória é marcada pela busca incessante pela <span className="text-white font-medium underline decoration-indigo-500 underline-offset-8">excelência técnica</span> e 
+                pela estética minimalista. Cada linha de código é uma decisão de design, cada componente uma peça de um quebra-cabeça maior.
+              </p>
+              <p className="text-lg text-gray-500">
+                Especialista em ecossistemas de alto tráfego, foco em criar ferramentas que não apenas funcionam, 
+                mas que encantam quem as utiliza.
+              </p>
+            </div>
+
+            <div className="pt-10 flex items-center gap-6">
+              <div className="w-12 h-px bg-white/10" />
+              <p className="text-white/20 font-serif italic text-lg max-w-xs leading-tight">
+                &quot;The detail is not the detail. It is the design.&quot;
+              </p>
             </div>
           </motion.div>
         </div>
@@ -97,3 +106,5 @@ export default function About() {
     </section>
   );
 }
+
+
