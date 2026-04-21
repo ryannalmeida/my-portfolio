@@ -29,7 +29,7 @@ const projects: Project[] = [
     image: '/myspot.png',
     techStack: ['React', 'TypeScript', 'AI/ML', 'OCR Engine'],
     githubUrl: 'https://github.com/ryannalmeida/myspot',
-    liveUrl: 'https://myspot.com.br',
+    liveUrl: 'https://myspot-landing-page-p6xj.vercel.app/',
   },
   {
     title: 'Lacrei Insights',
