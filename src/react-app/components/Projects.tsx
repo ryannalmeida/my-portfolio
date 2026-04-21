@@ -17,7 +17,7 @@ const projects: Project[] = [
     title: 'Artools',
     description:
       'A Precision Pen que redefine o equilíbrio entre peso, fluxo e design. Um projeto focado em criadores que exigem perfeição em cada traço e tecnologia de ponta.',
-    image: '/my-portfolio/artools.png',
+    image: '/artools.png',
     techStack: ['TypeScript', 'Next.js', 'Canvas API', 'GSAP'],
     githubUrl: 'https://github.com/ryannalmeida/Artools-Website',
     liveUrl: 'https://artools-website-beige.vercel.app/',
@@ -26,7 +26,7 @@ const projects: Project[] = [
     title: 'MySpot',
     description:
       'Tecnologia avançada de tradução em tempo real para jogos via IA. Reconhecimento de tela de alto desempenho que permite entender qualquer idioma instantaneamente.',
-    image: '/my-portfolio/myspot.png',
+    image: '/myspot.png',
     techStack: ['React', 'TypeScript', 'AI/ML', 'OCR Engine'],
     githubUrl: 'https://github.com/ryannalmeida/myspot',
     liveUrl: 'https://myspot.com.br',
@@ -35,7 +35,7 @@ const projects: Project[] = [
     title: 'Lacrei Insights',
     description:
       'Análise estratégica de dados e inteligência para a plataforma Lacrei Saúde. Focado em acessibilidade e impacto social no setor de saúde inclusiva.',
-    image: '/my-portfolio/lacrei.png',
+    image: '/lacrei.png',
     techStack: ['React', 'TypeScript', 'Data Analysis', 'Python'],
     githubUrl: 'https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-2-pe4-t3-lacrei_insights',
   },
