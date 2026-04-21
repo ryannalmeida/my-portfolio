@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Mail, Send, Github, Linkedin, MessageSquare, ArrowUpRight } from 'lucide-react';
+import { Mail, Send, Github, Linkedin, ArrowUpRight } from 'lucide-react';
 
 interface ContactFormData {
   email: string;
